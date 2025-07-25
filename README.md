@@ -27,6 +27,3 @@ Built in 48 hours for [Hackathon Name] using OpenAI’s GPT API, Culture Chef is
 
 ### 1. Clone the repo
 
-```bash
-git clone https://github.com/YOUR_USERNAME/culture-chef.git
-cd culture-chef

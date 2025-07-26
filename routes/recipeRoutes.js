@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const Recipe = require("../models/recipeModels");
+const authenticateToken = require("../middlewares/authenticateUser");
 
-router.get("/recipes/favourites", async (req, res) => {
+router.get("/recipes/favourites", authenticateToken, async (req, res) => {
   try {
-    const favourites = await Recipe.find({ favourite: true });
+    const userId = req.user._id;
+    const favourites = await Recipe.find({ favourite: true, userId });
     res.json(favourites);
   } catch (err) {
     res.status(500).json({ error: err.message });

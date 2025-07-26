@@ -17,6 +17,7 @@ connectDB();
 server.use("/", authRoutes);
 server.use("/", geminiRoutes);
 server.use("/", recipeRoutes);
+server.use("/", userRoutes);
 
 server.listen(8000, '0.0.0.0', () => {
     console.log("Server is connected and listening on port 8000")

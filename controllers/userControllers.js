@@ -20,9 +20,10 @@ exports.profileVisibilityController = async (req, res) => {
 };
 
 exports.getPublicProfilesController = async (req, res) => {
-    const users = await User.find({ public: true });
+    const userId = req.user._id;
+    const users = await User.find({ public: true, _id: { $ne: userId } });
     if (!users.length === 0) {
-        return res.status(401).json({ error: "Np public profiles found" });
+        return res.status(401).json({ error: "No public profiles found" });
     }
     return res.status(200).json({ users });
 };

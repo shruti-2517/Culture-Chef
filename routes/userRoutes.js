@@ -9,6 +9,6 @@ const {
 
 router.get("/users/profile", authenticateToken, getProfileInfoController);
 router.patch("/users/profileVisibilty", authenticateToken, profileVisibilityController);
-router.patch("/users/publicProfiles", getPublicProfilesController);
+router.patch("/users/publicProfiles", authenticateToken, getPublicProfilesController);
 
 module.exports = router;

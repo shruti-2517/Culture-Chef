@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       default: 'user'
+    },
+    public: {
+      type: Boolean,
+      default: false
     }
   },
   {

@@ -4,6 +4,7 @@
   "description": "**Culture Chef** is an AI-powered web app that transforms your fridge into a global food adventure.  \r Just input your available ingredients, select a cuisine or region you're craving, and let our app recommend culturally authentic recipes — complete with history, traditions, and dietary substitutions.",
   "main": "server.js",
   "dependencies": {
+    "@google/genai": "^1.11.0",
     "accepts": "^2.0.0",
     "bcrypt": "^6.0.0",
     "body-parser": "^2.2.0",
@@ -105,7 +106,6 @@
     "whatwg-url": "^14.2.0",
     "wrappy": "^1.0.2"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

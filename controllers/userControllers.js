@@ -18,3 +18,11 @@ exports.profileVisibilityController = async (req, res) => {
     }
     return res.status(200).json({message: "Visibilty updated"});
 };
+
+exports.getPublicProfilesController = async (req, res) => {
+    const users = await User.find({ public: true });
+    if (!user) {
+        return res.status(401).json({ error: "Cannot fetch public profiles" });
+    }
+    return res.status(200).json({ users });
+};

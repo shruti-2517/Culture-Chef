@@ -8,7 +8,7 @@ const {
 } = require("../controllers/userControllers");
 
 router.get("/users/profile", authenticateToken, getProfileInfoController);
-router.patch("/users/profileVisibilty", authenticateToken, getProfileInfoController);
+router.patch("/users/profileVisibilty", authenticateToken, profileVisibilityController);
 router.patch("/users/publicProfiles", getPublicProfilesController);
 
 module.exports = router;

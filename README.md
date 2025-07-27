@@ -14,7 +14,7 @@ Culture-Chef is an AI-powered recipe generator that brings together **machine in
 
 ## 🛠️ Tech Stack
 - **Frontend:** React.js
-- **AI:** OpenAI GPT
+- **AI:** Gemini API
 - **Styling:** CSS
 - **Backend:** Node.js/Express (for persistence)
 - **Version Control:** GitHub
@@ -23,7 +23,7 @@ Culture-Chef is an AI-powered recipe generator that brings together **machine in
 We wanted to create an app that doesn't just *automate* cooking but makes it fun, cultural, and creative—keeping the **human touch** alive in every dish.
 
 ## 📹 Demo
-[Add link to demo video here]
+https://youtu.be/4anyOPTsd0Q
 
 ## ✅ Setup Instructions
 1. Clone this repo:

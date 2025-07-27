@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/recipe-display.css";
+import authFetch from "./authFetch";
 
 export const RecipeDisplay = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
   const { recipe } = location.state || {
     recipe: {
       name: "Sample Recipe",
@@ -16,22 +19,21 @@ export const RecipeDisplay = () => {
     }
   };
 
-  const handleBookmark = () => {
-    // Get existing bookmarks or initialize empty array
-    const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
-    
-    // Check if recipe is already bookmarked
-    if (!bookmarks.some(b => b.id === recipe.id)) {
-      // Add to bookmarks
-      localStorage.setItem(
-        "bookmarks",
-        JSON.stringify([...bookmarks, { ...recipe, id: Date.now() }])
-      );
-      alert("Recipe bookmarked!");
-    } else {
-      alert("Recipe already bookmarked");
+  const handleBookmark = async () => {
+    const response = await fetch("/users/profile/recipes/togglebookmark", {
+      method: "PATCH",
+      body: JSON.stringify({ recipeId: recipe._id || recipe.id }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      
     }
+
+    setIsBookmarked(data.bookmarked);
   };
+
 
   const handleRegenerate = () => {
     // In a real app, this would call your AI generation API

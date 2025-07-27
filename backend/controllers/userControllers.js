@@ -50,7 +50,7 @@ exports.getBookmarkRecipesController = async (req, res) => {
 
 exports.getRecipesController = async (req, res) => {
     const userName = req.params.username;
-    const user = await User.findOne({ name: userName }, { _id: 1});
+    const user = await User.findOne({ name: userName }, { _id: 1 });
     const recipes = await Recipe.find({ userId: user._id });
     if (recipes.length === 0 || !user) {
         return res.status(401).json({ error: "Cannot retrieve recipes" });
@@ -58,10 +58,9 @@ exports.getRecipesController = async (req, res) => {
     return res.status(200).json({ recipes });
 };
 
-
-exports.addBookmarksController = async (req, res) => {
+exports.toggleBookmarksController = async (req, res) => {
     const userId = req.user.id;
-    const recipeId = req.body;
+    const { recipeId } = req.body;
 
     if (!userId || !recipeId) {
         return res.status(400).json({ error: "Missing userId or recipeId" });
@@ -72,28 +71,18 @@ exports.addBookmarksController = async (req, res) => {
         return res.status(404).json({ error: "Recipe not found" });
     }
 
-    const alreadyBookmarked = User.bookmarks.includes(recipeId);
-    if (alreadyBookmarked) {
-        return res.status(400).json({ error: "Recipe already bookmarked" });
-    }
-
-    const user = await User.findById(userId);
-    user.bookmarks.push(recipeId);
-    await user.save();
-}
-
-exports.deleteBookmarksController = async (req, res) => {
-    const userId = req.user.id;
-    const recipeId = req.params.recipeId;
-
     const user = await User.findById(userId);
 
-    if (!user.bookmarks.includes(recipeId)) {
-        return res.status(400).json({ error: "Recipe not in bookmarks" });
+    const isBookmarked = user.bookmarks.includes(recipeId);
+
+    if (isBookmarked) {
+        user.bookmarks = user.bookmarks.filter(id => id.toString() !== recipeId);
+        await user.save();
+        return res.status(200).json({ message: "Bookmark removed", bookmarked: false });
+    } else {
+        user.bookmarks.push(recipeId);
+        await user.save();
+        return res.status(200).json({ message: "Recipe bookmarked", bookmarked: true });
     }
-
-    user.bookmarks = user.bookmarks.filter(id => id.toString() !== recipeId);
-    await user.save();
-
-    res.status(200).json({ message: "Recipe removed from bookmarks" });
 };
+

@@ -24,13 +24,15 @@ exports.generateRecipeController = async (req, res) => {
                 - A clear list of ingredients, in form of an array of strings
                 - Step-by-step preparation instructions, in form of array of strings in instructions field
                 - Ensure the recipe is appropriate for the dietary needs and reflects the cultural context
+                - Include a url of an image of that link
 
                 Respond in this exact JSON format:
                 {
                   "title": "",
                   "description": "",
                   "ingredients": [],
-                  "instructions": []
+                  "instructions": [],
+                  "image": ""
                 }
                 Only return valid JSON with no extra commentary.
         `;

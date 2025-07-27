@@ -19,7 +19,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home />} />
             <Route path="/recipe-display" element={<RecipeDisplay />} />
-            <Route path="/recipe/:id" element={<RecipeDetail />} />
+            <Route path="/recipe-detail" element={<RecipeDetail />} />
           </Routes>
         </main>
         <Footer />

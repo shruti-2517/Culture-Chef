@@ -14,6 +14,7 @@ const recipeSchema = new mongoose.Schema(
     dietaryNeeds: [String],
     prepTime: Number,
     description: String,
+    image: String,
     tags: [String]
   },
   { timestamps: true }

@@ -7,8 +7,7 @@ const {
   profileVisibilityController,
   getPublicProfilesController,
   getBookmarkRecipesController,
-  addBookmarksController,
-  deleteBookmarksController,
+  toggleBookmarksController,
   getRecipesController
 } = require("../controllers/userControllers");
 
@@ -18,7 +17,6 @@ router.get("/users/publicProfiles", authenticateToken, getPublicProfilesControll
 router.get("/users/profile/:username", getPublicProfilesController);
 router.get("/users/profile/:username/recipesbookmarked", getBookmarkRecipesController);
 router.get("/users/profile/:username/recipes", getRecipesController);
-router.patch("/users/profile/recipes/addbookmark", authenticateToken, addBookmarksController);
-router.delete("/users/profile/recipes/deletebookmark", authenticateToken, deleteBookmarksController);
+router.patch("/users/profile/recipes/togglebookmark", authenticateToken, toggleBookmarksController);
 
 module.exports = router;

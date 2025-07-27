@@ -1,0 +1,54 @@
+:root {
+  /* Steel Teal Palette */
+  --primary: #578088;
+  --secondary: #74948C;
+  --accent: #b46c72;
+  --accent-dark: #a56469;
+  --text: #333;
+  --bg: #f8f9fa;
+  --card-bg: white;
+  --border: #dee2e6;
+  --error: #dc3545;
+}
+
+
+/* :root {
+  /* //Pink Aesthetic Palette 
+  --primary: #F5E6D1; 
+  --secondary: #B46C72; 
+  --accent: #5E7B9B;
+  --accent-dark: #4d6785;
+  --text: #6E2E34; 
+  --bg: #FFF9F5;
+  --card-bg: white;
+  --border: #FFC8CB;
+  --error: #dc3545;
+} */
+
+/* 
+:root {
+  /* // Earthy Tones Palette  
+  --primary: #69220F; 
+  --secondary: #D28133;
+  --accent: #EFBC49; 
+  --accent-dark: #e0b041;
+  --text: #333;
+  --bg: #FDF5ED;
+  --card-bg: white;
+  --border: #F3A88D; 
+  --error: #862617; 
+} */
+/* 
+:root {
+  /* Steel Teal Palette 
+  --primary: #578088;
+  --secondary: #74948C;
+  --accent: #B46C72;
+  --accent-dark:#864c51;
+  --text: #333;
+  --bg: #f8f9fa;
+  --card-bg: white;
+  --border: #dee2e6;
+  --error: #dc3545;
+} */
+

@@ -6,7 +6,7 @@ const ai = new GoogleGenAI({});
 
 exports.generateRecipeController = async (req, res) => {
     try {
-        const { ingredients, culture, dietaryNeeds } = req.body;
+        const { ingredients, culture, dietaryNeeds, prepTime } = req.body;
 
         if (!ingredients || !culture || !dietaryNeeds) {
             return res.status(400).json({ error: "Please provide ingredients, culture, and dietary needs." });
@@ -15,7 +15,8 @@ exports.generateRecipeController = async (req, res) => {
         const prompt = ` Generate a recipe using the following details:
                 - Ingredients: ${ingredients.join(", ")}
                 - Culture: ${culture}
-                - Dietary Needs: ${dietaryNeeds}
+                - Dietary Needs: ${dietaryNeeds.join(", ")}
+                - Preparation Time: ${prepTime}
 
                 Please include:
                 - A suitable recipe name/title, in title field

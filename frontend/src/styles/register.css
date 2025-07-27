@@ -1,0 +1,97 @@
+@import './colors.css';
+
+.sign-up {
+  background-color: var(--bg);
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+  width: 100%;
+  font-family: 'Inter', Helvetica, sans-serif;
+}
+
+.sign-up .div {
+  background-color: var(--card-bg);
+  width: 320px;
+  padding: 20px;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.sign-up .text-wrapper {
+  font-weight: 600;
+  font-size: 24px;
+  color: var(--primary);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.sign-up .text-wrapper-2 {
+  font-size: 14px;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.sign-up form {
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-up label {
+  font-size: 14px;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.sign-up input {
+  height: 32px;
+  padding: 6px 10px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.sign-up button {
+  margin-top: 20px;
+  height: 36px;
+  background-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sign-up button:hover {
+  background-color: var(--accent-dark);
+}
+
+.sign-up p {
+  font-size: 12px;
+  color: var(--text);
+  margin-top: 16px;
+  text-align: center;
+}
+
+.sign-up p a {
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+.sign-up p a:hover {
+  text-decoration: underline;
+}
+
+.text-wrapper-3, .text-wrapper-4, .text-wrapper-5 {
+  text-align: center;
+}
+
+.error {
+  color: var(--error);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}

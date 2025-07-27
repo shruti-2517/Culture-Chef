@@ -28,7 +28,18 @@ exports.signupController = async (req, res) => {
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
 
-    return res.status(201).json({ message: "User Created" });
+    const payload = { id: newUser._id };
+    const accessToken = generateAccessToken(payload);
+    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
+
+    res.cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "Strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    return res.status(201).json({ accessToken });
 };
 
 exports.loginController = async (req, res) => {

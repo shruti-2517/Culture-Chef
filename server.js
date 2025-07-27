@@ -6,7 +6,7 @@ const authRoutes = require("./routes/authRoutes");
 const geminiRoutes = require("./routes/geminiRoutes");
 const connectDB = require("./db/db.js");
 const recipeRoutes = require("./routes/recipeRoutes");
-const recipeRoutes = require("./routes/userRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const server = express();
 server.use(cors());

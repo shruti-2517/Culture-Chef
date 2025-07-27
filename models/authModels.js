@@ -29,7 +29,13 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
       default: false
-    }
+    },
+    bookmarks: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Recipe"
+      }
+    ]
   },
   {
     timestamps: true

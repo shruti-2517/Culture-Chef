@@ -12,11 +12,7 @@ const recipeSchema = new mongoose.Schema(
     instructions: String,
     culture: String,
     dietaryNeeds: String,
-    favourite: {
-      type: Boolean,
-      default: false
-    },
-    summary: {
+    description: {
       type: String,
       maxlength: 300
     },

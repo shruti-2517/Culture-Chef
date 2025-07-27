@@ -19,6 +19,11 @@ exports.signupController = async (req, res) => {
         return res.status(400).json({ error: "User Already Exists" });
     }
 
+    const existingUserWithName = await User.findOne({ name });
+    if (existingUserWithName) {
+        return res.status(400).json({ error: "Username is Already Taken" });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();

@@ -33,6 +33,7 @@ export const Register = () => {
     const data = await res.json()
     if (res.status == 200) {
       localStorage.setItem("token", data.accessToken)
+      localStorage.setItem("username", username)
       navigate("/home")
     }
     else {

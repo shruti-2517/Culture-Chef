@@ -1,4 +1,3 @@
-// components/Header.jsx
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -16,24 +15,26 @@ export const Header = ({ showNav = true }) => {
   return (
     <header className="app-header">
       <div className="header-content">
+        {/* Logo & App Name */}
         <Link to="/home" className="logo-link">
           <img src={logo} alt="Culture Chef Logo" className="logo" />
           <span className="app-name">Culture Chef</span>
         </Link>
         
+        {/* Navigation */}
         {showNav && (
           <nav className="main-nav">
-            <Link to="/home">Home</Link>
-            <Link to="/recipe-display">Recipes</Link>
             {user ? (
               <>
-                <Link to="/profile">Profile</Link>
                 <button onClick={handleLogout} className="logout-btn">
                   Logout
                 </button>
               </>
             ) : (
-              <Link to="/login">Login</Link>
+              <>
+                <Link to="/login" className="nav-link">Login</Link>
+                <Link to="/register" className="nav-link register-link">Register</Link>
+              </>
             )}
           </nav>
         )}

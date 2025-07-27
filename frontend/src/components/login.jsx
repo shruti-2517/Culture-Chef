@@ -32,6 +32,7 @@ export const Login = () => {
     const data = await res.json()
     if (res.status == 200) {
       localStorage.setItem("token", data.accessToken)
+      localStorage.setItem("username", data.username)
       navigate("/home");
     }
     else {

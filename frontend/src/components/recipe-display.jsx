@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { FaBookmark, FaRegBookmark, FaRedoAlt, FaTimes } from "react-icons/fa";
 import "../styles/recipe-display.css";
 import authFetch from "./authFetch";
 
@@ -20,26 +21,33 @@ export const RecipeDisplay = () => {
   };
 
   const handleBookmark = async () => {
-    const response = await fetch("/users/profile/recipes/togglebookmark", {
+    const response = await authFetch("/users/profile/recipes/togglebookmark", {
       method: "PATCH",
       body: JSON.stringify({ recipeId: recipe._id || recipe.id }),
     });
 
     const data = await response.json();
 
-    if (!response.ok) {
-      
-    }
-
     setIsBookmarked(data.bookmarked);
   };
 
 
-  const handleRegenerate = () => {
-    // In a real app, this would call your AI generation API
-    alert("Regenerating recipe with similar parameters...");
-    // For now, just refresh the page with the same recipe
-    navigate("/recipe-display", { state: { recipe } });
+  const handleRegenerate = async () => {
+    const res = await authFetch("/generate-recipe", {
+      method: "POST",
+      body: JSON.stringify({
+        ingredients: recipe.ingredients,
+        dietaryNeeds: recipe.dietaryNeeds,
+        culture: recipe.culture,
+        prepTime: recipe.prepTime,
+        note: `Don't give ${recipe.title}`
+      })
+    });
+
+    const data = await res.json()
+    if (res.status == 200) {
+      navigate("/recipe-display", { state: { recipe: data.recipe } });
+    }
   };
 
   const handleClose = () => {
@@ -88,8 +96,8 @@ export const RecipeDisplay = () => {
         <button onClick={handleRegenerate} className="action-btn regenerate-btn">
           Regenerate
         </button>
-        <button onClick={handleBookmark} className="action-btn bookmark-btn">
-          Bookmark
+         <button onClick={handleBookmark} className="action-btn bookmark-btn">
+          {isBookmarked ? <FaBookmark /> : <FaRegBookmark />} Bookmark
         </button>
       </div>
     </div>

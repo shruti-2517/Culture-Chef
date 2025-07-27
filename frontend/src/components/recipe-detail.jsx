@@ -1,12 +1,14 @@
 // recipe-detail.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { FaBookmark, FaRegBookmark, FaRedoAlt, FaTimes } from "react-icons/fa";
 import "../styles/recipe-detail.css";
 import authFetch from "./authFetch";
 
 export const RecipeDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   const { recipe } = location.state || {
     recipe: {
@@ -19,27 +21,22 @@ export const RecipeDetail = () => {
     }
   };
 
-  const handleBookmark = () => {
-    // Get existing bookmarks or initialize empty array
-    const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+  const handleBookmark = async () => {
+    const response = await authFetch("/users/profile/recipes/togglebookmark", {
+      method: "PATCH",
+      body: JSON.stringify({ recipeId: recipe._id || recipe.id }),
+    });
 
-    // Check if recipe is already bookmarked
-    if (!bookmarks.some(b => b.id === recipe.id)) {
-      // Add to bookmarks
-      localStorage.setItem(
-        "bookmarks",
-        JSON.stringify([...bookmarks, { ...recipe, id: Date.now() }])
-      );
-      alert("Recipe bookmarked!");
-    } else {
-      alert("Recipe already bookmarked");
-    }
+    const data = await response.json();
+
+    setIsBookmarked(data.bookmarked);
   };
 
   return (
     <div className="recipe-detail-container">
       <h1>{recipe.title}</h1>
       <div className="recipe-icon">{recipe.icon || "🍳"}</div>
+
 
       <div className="recipe-meta">
         <span className="cuisine">{recipe.culture || "International"}</span>
@@ -75,7 +72,7 @@ export const RecipeDetail = () => {
           Back
         </button>
         <button onClick={handleBookmark} className="action-btn bookmark-btn">
-          Bookmark
+          {isBookmarked ? <FaBookmark /> : <FaRegBookmark />} Bookmark
         </button>
       </div>
 

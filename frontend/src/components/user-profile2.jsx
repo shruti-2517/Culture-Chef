@@ -128,17 +128,15 @@ export const UserProfile = () => {
         )}
       </div>
 
-      {
-        selectedRecipe && (
-          <div className="modal-overlay" onClick={closeModal}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <h2>{selectedRecipe.title}</h2>
-              <p>{selectedRecipe.details}</p>
-              <button className="close-btn" onClick={closeModal}>Close</button>
-            </div>
+      {selectedRecipe && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>{selectedRecipe.title}</h2>
+            <p>{selectedRecipe.details}</p>
+            <button className="close-btn" onClick={closeModal}>Close</button>
           </div>
-        )
-      }
-    </div >
+        </div>
+      )}
+    </div>
   );
 };

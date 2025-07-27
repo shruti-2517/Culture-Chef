@@ -6,7 +6,7 @@ const ai = new GoogleGenAI({});
 
 exports.generateRecipeController = async (req, res) => {
     try {
-        const { ingredients, culture, dietaryNeeds, prepTime } = req.body;
+        const { ingredients, culture, dietaryNeeds, prepTime, note } = req.body;
 
         if (!ingredients || !culture || !dietaryNeeds) {
             return res.status(400).json({ error: "Please provide ingredients, culture, and dietary needs." });
@@ -17,6 +17,7 @@ exports.generateRecipeController = async (req, res) => {
                 - Culture: ${culture}
                 - Dietary Needs: ${dietaryNeeds.join(", ")}
                 - Preparation Time: ${prepTime}
+                - Note: ${note}
 
                 Please include:
                 - A suitable recipe name/title, in title field
@@ -24,7 +25,7 @@ exports.generateRecipeController = async (req, res) => {
                 - A clear list of ingredients, in form of an array of strings
                 - Step-by-step preparation instructions, in form of array of strings in instructions field
                 - Ensure the recipe is appropriate for the dietary needs and reflects the cultural context
-                - Include a url of an image of that link
+                - A single emoji that best represents the recipe (like 🍜, 🥗, 🍕, etc.) in the icon field
 
                 Respond in this exact JSON format:
                 {
@@ -32,9 +33,9 @@ exports.generateRecipeController = async (req, res) => {
                   "description": "",
                   "ingredients": [],
                   "instructions": [],
-                  "image": ""
+                  "icon": ""
                 }
-                Only return valid JSON with no extra commentary.
+                Only return valid JSON with no extra commentary. Don't make mistakes with the JSON format!!!
         `;
 
         const response = await ai.models.generateContent({

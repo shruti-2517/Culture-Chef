@@ -20,11 +20,11 @@ exports.profileVisibilityController = async (req, res) => {
     return res.status(200).json({ message: "Visibilty updated" });
 };
 
-exports.getPublicProfilesController = async (req, res) => {
+exports.getAllProfilesController = async (req, res) => {
     const userId = req.user.id;
-    const users = await User.find({ public: true, _id: { $ne: userId } });
+    const users = await User.find({ _id: { $ne: userId } });
     if (users.length === 0) {
-        return res.status(401).json({ error: "No public profiles found" });
+        return res.status(401).json({ error: "No profiles found" });
     }
     return res.status(200).json({ users });
 };
@@ -86,3 +86,24 @@ exports.toggleBookmarksController = async (req, res) => {
     }
 };
 
+exports.isRecipeBookmarkedController = async (req, res) => {
+    const userId = req.user.id;
+    const { recipeId } = req.params;
+
+    if (!userId || !recipeId) {
+        return res.status(400).json({ error: "Missing userId or recipeId" });
+    }
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const isBookmarked = user.bookmarks.includes(recipeId);
+
+        return res.status(200).json({ bookmarked: isBookmarked });
+    } catch (error) {
+        return res.status(500).json({ error: "Server error" });
+    }
+};

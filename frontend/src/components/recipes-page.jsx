@@ -16,6 +16,9 @@ export const Recipes = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Array of fallback avatars
+  const avatars = [man1, man2, man3, women1, women2, women3];
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -40,20 +43,23 @@ export const Recipes = () => {
     <div className="recipes-container">
       <h2>Discover Users</h2>
       <div className="users-grid">
-        {Array.isArray(users) && users.map((user) => (
-          <div
-            key={user._id}
-            className="user-card"
-            onClick={() => navigate("/user-profile", { state: { user } })}
-          >
-            <img
-              src={user.avatar || "/default-avatar.png"}
-              alt={`${user.name}'s avatar`}
-              className="user-avatar"
-            />
-            <h4>{user.name}</h4>
-          </div>
-        ))}
+        {Array.isArray(users) && users.map((user) => {
+          const avatar = user.avatar || avatars[Math.floor(Math.random() * avatars.length)];
+          return (
+            <div
+              key={user._id}
+              className="user-card"
+              onClick={() => navigate("/user-profile", { state: { user } })}
+            >
+              <img
+                src={avatar}
+                alt={`${user.name}'s avatar`}
+                className="user-avatar"
+              />
+              <h4>{user.name}</h4>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

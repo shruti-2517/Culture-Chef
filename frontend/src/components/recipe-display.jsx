@@ -47,12 +47,12 @@ export const RecipeDisplay = () => {
   return (
     <div className="recipe-display-container">
       <div className="recipe-header">
-        <h1>{recipe.name}</h1>
+        <h1>{recipe.title}</h1>
         <div className="recipe-icon">{recipe.icon || "🍳"}</div>
       </div>
 
       <div className="recipe-meta">
-        <span className="cuisine">{recipe.cuisine}</span>
+        <span className="cuisine">{recipe.culture}</span>
         <span className="prep-time">Prep Time: {recipe.prepTime} mins</span>
       </div>
 
@@ -67,7 +67,7 @@ export const RecipeDisplay = () => {
 
       <div className="recipe-section">
         <h2>Cultural Background</h2>
-        <p>{recipe.culturalBackground}</p>
+        <p>{recipe.description}</p>
       </div>
 
       <div className="recipe-section">

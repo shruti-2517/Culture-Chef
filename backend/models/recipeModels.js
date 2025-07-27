@@ -9,14 +9,11 @@ const recipeSchema = new mongoose.Schema(
     },
     title: String,
     ingredients: [String],
-    instructions: String,
+    instructions: [String],
     culture: String,
     dietaryNeeds: [String],
     prepTime: Number,
-    description: {
-      type: String,
-      maxlength: 300
-    },
+    description: String,
     tags: [String]
   },
   { timestamps: true }

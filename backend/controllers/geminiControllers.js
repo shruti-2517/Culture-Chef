@@ -22,7 +22,7 @@ exports.generateRecipeController = async (req, res) => {
                 - A suitable recipe name/title, in title field
                 - A short description about the recipe along with it's culutural background, which would be in description field
                 - A clear list of ingredients, in form of an array of strings
-                - Step-by-step preparation instructions, in form of string in instructions field
+                - Step-by-step preparation instructions, in form of array of strings in instructions field
                 - Ensure the recipe is appropriate for the dietary needs and reflects the cultural context
 
                 Respond in this exact JSON format:
@@ -30,7 +30,7 @@ exports.generateRecipeController = async (req, res) => {
                   "title": "",
                   "description": "",
                   "ingredients": [],
-                  "instructions": ""
+                  "instructions": []
                 }
                 Only return valid JSON with no extra commentary.
         `;
@@ -40,17 +40,23 @@ exports.generateRecipeController = async (req, res) => {
             contents: prompt,
         });
 
-        const recipeJSON = response.candidates?.[0]?.content?.parts?.[0]?.text;
+        let recipeJSON = response.candidates?.[0]?.content?.parts?.[0]?.text;
+        recipeJSON = recipeJSON.replace(/```json|```/g, "").trim();
+
+        console.log(recipeJSON)
 
         const recipeData = JSON.parse(recipeJSON);
-
+        
         recipeData.culture = culture;
-        recipeData.userId = req.user._id;
+        recipeData.userId = req.user.id;
         recipeData.dietaryNeeds = dietaryNeeds;
-
+        recipeData.prepTime = prepTime;
+        
         const newRecipe = new Recipe(recipeData);
         await newRecipe.save();
 
+        console.log(newRecipe)
+        
         return res.status(200).json({ recipe: newRecipe });
 
     } catch (error) {

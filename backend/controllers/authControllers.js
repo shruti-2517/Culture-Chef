@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/authModels");
+const RefreshToken = require("../models/refreshTokenModels");
 require("dotenv").config();
 
 const generateAccessToken = (user) => {
@@ -31,6 +32,10 @@ exports.signupController = async (req, res) => {
     const payload = { id: newUser._id };
     const accessToken = generateAccessToken(payload);
     const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
+
+     await new RefreshToken({ userId: newUser._id, token: refreshToken }).save();
+
+     await new RefreshToken({ userId: newUser._id, token: refreshToken }).save();
 
     res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
@@ -78,10 +83,7 @@ exports.tokenController = async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) return res.sendStatus(401);
 
-    const db = connection.db("culture-chef");
-    const tokenCollection = db.collection("REFRESH TOKENS");
-
-    const tokenExists = await tokenCollection.findOne({ token: refreshToken });
+    const tokenExists = await RefreshToken.findOne({ token: refreshToken });
     if (!tokenExists) return res.sendStatus(403);
 
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {

@@ -2,7 +2,7 @@ const User = require("../models/authModels");
 const Recipe = require("../models/recipeModels");
 
 exports.getSelfProfileInfoController = async (req, res) => {
-    const userId = req.user._id;
+    const userId = req.user.id;
     const user = await User.findOne({ userId }, { email: 1, name: 1, public: 1 });
     if (!user) {
         return res.status(401).json({ error: "Cannot retrieve profile information" });
@@ -11,7 +11,7 @@ exports.getSelfProfileInfoController = async (req, res) => {
 };
 
 exports.profileVisibilityController = async (req, res) => {
-    const userId = req.user._id;
+    const userId = req.user.id;
     const { public } = req.body;
     const updatedUser = await User.findOneAndUpdate({ userId }, { $set: { public: public } }, { new: true });
     if (!updatedUser) {
@@ -21,7 +21,7 @@ exports.profileVisibilityController = async (req, res) => {
 };
 
 exports.getPublicProfilesController = async (req, res) => {
-    const userId = req.user._id;
+    const userId = req.user.id;
     const users = await User.find({ public: true, _id: { $ne: userId } });
     if (users.length === 0) {
         return res.status(401).json({ error: "No public profiles found" });
@@ -30,7 +30,7 @@ exports.getPublicProfilesController = async (req, res) => {
 };
 
 exports.getOthersProfileInfoController = async (req, res) => {
-    const userId = req.user._id;
+    const userId = req.user.id;
     const user = await User.findOne({ userId }, { email: 1, name: 1, public: 1 });
     if (!user) {
         return res.status(401).json({ error: "Cannot retrieve profile information" });
@@ -60,7 +60,7 @@ exports.getRecipesController = async (req, res) => {
 
 
 exports.addBookmarksController = async (req, res) => {
-    const userId = req.user._id;
+    const userId = req.user.id;
     const recipeId = req.body;
 
     if (!userId || !recipeId) {
@@ -83,7 +83,7 @@ exports.addBookmarksController = async (req, res) => {
 }
 
 exports.deleteBookmarksController = async (req, res) => {
-    const userId = req.user._id;
+    const userId = req.user.id;
     const recipeId = req.params.recipeId;
 
     const user = await User.findById(userId);

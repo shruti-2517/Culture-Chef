@@ -28,5 +28,5 @@ https://youtu.be/4anyOPTsd0Q
 ## ✅ Setup Instructions
 1. Clone this repo:
    ```bash
-   git clone https://github.com/your-username/culture-chef.git
+   git clone https://github.com/shruti-2517/Culture-Chef.git
    cd culture-chef
